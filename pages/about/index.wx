@@ -1,0 +1,73 @@
+<template>
+  <view>
+    <nav-height is-back="{{true}}" ></nav-height>
+    <view class="swiper-container">
+      <swiper circular autoplay interval="5000" duration="500" bindchange="swiperChange" class="swiper">
+        <block wx:for="{{items}}" wx:key="unique">
+          <swiper-item>
+            <image src="{{'https://dummyimage.com/750x200' + item.src}}" class="img"></image>
+          </swiper-item>
+        </block>
+      </swiper>
+
+      <view class="dots">
+        <block wx:for="{{items}}" wx:key="unique">
+          <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
+        </block>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+export default {
+  config: {
+    usingComponents: {
+      'nav-height': '../../packages/navHeight'
+    },
+    navigationBarTitleText: '关于',
+  },
+  data: {
+    items:[
+      {src: '/f00/fff'},
+      {src: '/ff0/fff'},
+      {src: '/f0f/fff'},
+      {src: '/0ff/fff'},
+    ]
+  }
+}
+</script>
+
+<style lang="less">
+// 自定义小圆点
+.swiper-container {
+  position: relative;
+  .swiper {
+    height: 100px;
+    .img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20rpx;
+    display: flex;
+    justify-content: center;
+    z-index: 9;
+    .dot {
+      margin: 0 8rpx;
+      width: 14rpx;
+      height: 14rpx;
+      background: #fff;
+      border-radius: 8rpx;
+    }
+    .active {
+      width: 24rpx;
+      background: #fff;
+    }
+  }
+}
+</style>

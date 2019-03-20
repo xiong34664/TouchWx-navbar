@@ -1,0 +1,81 @@
+<template>
+  <view style="height:{{NAV_HEIGHT}}">
+    <view class="nav-bar" style="{{ {paddingTop: pt} }}">
+      <ui-row height="46">
+        <ui-col vertical-align="middle" align="center" width="60">
+          <ui-icon wx:if="{{isBack}}" type="arrow-left" size="16" color="#0dc1ae" bindtap="navigateBack"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <slot></slot>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="80">
+        </ui-col>
+      </ui-row>
+    </view>
+  </view>
+
+</template>
+
+<script>
+export default {
+  data: {
+    NAV_HEIGHT: wx.STATUS_BAR_HEIGHT + wx.DEFAULT_HEADER_HEIGHT + 'px',
+    pt: wx.STATUS_BAR_HEIGHT + 'px'
+  },
+  properties: {
+      isBack: {
+        type: Boolean,
+        value: true,
+      }
+    },
+  methods: {
+    navigateBack: ()=> {
+      wx.navigateBack()
+    },
+  },
+  created() {
+
+  }
+
+}
+</script>
+
+<style lang="less">
+@import '../static/styles/icon.less';
+.nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  font-size: 14px;
+  z-index: 490;
+  user-select: none;
+  height: 66px;
+  background: #fff;
+}
+.ui-row {
+  position: relative;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.ui-col {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex: 1;
+  height: 100%;
+  &-align-center {
+    text-align: center;
+  }
+  &.align-center {
+    justify-content: center;
+  }
+  &.valign-middle {
+    align-items: center;
+  }
+}
+.ui-col-content.align-center {
+  align-items: center;
+}
+</style>

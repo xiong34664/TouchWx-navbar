@@ -1,0 +1,88 @@
+<template>
+  <view>
+    <nav-height is-back="{{false}}">
+      <view style="width:120px;margin:0 auto">
+        <ui-tabs width="120" tab-style="{{tabStyle}}" auto-width="{{false}}" index="{{ current }}" bindchange="handleChange">
+          <ui-tab>
+            <view class="item item-right">精选</view>
+          </ui-tab>
+          <ui-tab>
+            <view class="item item-left">
+              订阅
+              <ui-badge custom-style="padding: 3px;top:-5px" wx:if="{{showBadge}}"></ui-badge>
+            </view>
+          </ui-tab>
+        </ui-tabs>
+      </view>
+    </nav-height>
+    <swiper class="content" current="{{ current }}" bindchange="handleContentChange">
+      <swiper-item>
+        内容一
+      </swiper-item>
+      <swiper-item>
+        内容二
+      </swiper-item>
+    </swiper>
+    <navigator url="/pages/about/index">关于</navigator>
+    <button bindtap="handleNavRight">handleNavRight</button>
+  </view>
+</template>
+
+
+<script>
+// segment2.js
+export default {
+  config: {
+    usingComponents: {
+      'nav-height': '../../packages/navHeight'
+    },
+    "navigationBarTitleText": "全局segment",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black",
+  },
+  data: {
+    current: 0,
+  },
+
+  handleNavRight () {
+    wx.showActionSheet({
+      itemList: [
+        '转账记录',
+        '使用帮助',
+        '延时转账服务'
+      ],
+      success: (index) => {
+        wx.showToast({
+          title: `index: ${index}`
+        })
+      }
+    })
+  },
+  handleChange (e) {
+    let index = e.detail.index
+    if (index === 1) {
+      this.setData({
+        showBadge: false
+      })
+    }
+    this.setData({
+      current: index
+    })
+  },
+  handleContentChange (e) {
+    let current = e.detail.current
+    this.setData({
+      current: current
+    })
+  },
+  onReady: function () {
+
+  }
+}
+
+</script>
+
+<style lang="less">
+// segment2.less
+
+</style>
